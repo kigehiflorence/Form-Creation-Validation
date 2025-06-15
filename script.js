@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const form = document.getElementById("registration-form");
     const feedbackDiv = document.getElementById("form-feedback");
 
-    // Form submit event listener
     form.addEventListener("submit", function(event) {
         event.preventDefault();
 
@@ -13,7 +12,6 @@ document.addEventListener("DOMContentLoaded", function() {
         const messages = [];
         let isValid = true;
 
-        // Validation checks
         if (username === "") {
             messages.push("Username is required.");
             isValid = false;
@@ -29,13 +27,15 @@ document.addEventListener("DOMContentLoaded", function() {
             isValid = false;
         }
 
-        // Display validation results
-        if (!isValid) {
-            feedbackDiv.style.color = "red";
-            feedbackDiv.innerHTML = messages.join("<br>");
-        } else {
-            feedbackDiv.style.color = "green";
+        // Always make feedbackDiv visible
+        feedbackDiv.style.display = "block";
+
+        if (isValid) {
             feedbackDiv.textContent = "Registration successful!";
+            feedbackDiv.style.color = "#28a745";
+        } else {
+            feedbackDiv.innerHTML = messages.join("<br>");
+            feedbackDiv.style.color = "#dc3545";
         }
     });
 
@@ -48,10 +48,8 @@ document.addEventListener("DOMContentLoaded", function() {
             const response = await fetch(apiUrl);
             const users = await response.json();
 
-            // Clear the loading message
             dataContainer.innerHTML = '';
 
-            // Create a list to display users
             const userList = document.createElement('ul');
 
             users.forEach(user => {
@@ -60,7 +58,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 userList.appendChild(listItem);
             });
 
-            // Append the list to the container
             dataContainer.appendChild(userList);
 
         } catch (error) {
@@ -68,6 +65,5 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // Invoke the function
     fetchUserData();
 });

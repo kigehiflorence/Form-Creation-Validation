@@ -21,8 +21,13 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         if (email === "") {
-            messages.push("Email is required.");
-            isValid = false;
+    messages.push("Email is required.");
+    isValid = false;
+} else if (!email.includes("@")) {
+    messages.push("Please enter a valid email address.");
+    isValid = false;
+}
+
         }
 
        if (password === "") {

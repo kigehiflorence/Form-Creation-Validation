@@ -25,10 +25,13 @@ document.addEventListener("DOMContentLoaded", function() {
             isValid = false;
         }
 
-        if (password === "") {
-            messages.push("Password is required.");
-            isValid = false;
-        }
+       if (password === "") {
+    messages.push("Password is required.");
+    isValid = false;
+} else if (password.length < 6) {
+    messages.push("Password must be at least 6 characters long.");
+    isValid = false;
+}
 
         feedbackDiv.style.display = "block";
 

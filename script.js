@@ -1,6 +1,9 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Async function to fetch user data
-    async function fetchUserData() {
+document.addEventListener("DOMContentLoaded", function() {
+    const form = document.getElementById("registration-form");
+
+    // other code will go here later — like event listeners or validations
+    
+       async function fetchUserData() {
         const apiUrl = 'https://jsonplaceholder.typicode.com/users';
         const dataContainer = document.getElementById('api-data');
 

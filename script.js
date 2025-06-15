@@ -1,50 +1,35 @@
-document.addEventListener("DOMContentLoaded", () => {
-    // Form selection
-    const form = document.getElementById("registration-form");
+document.addEventListener('DOMContentLoaded', function() {
+    // Async function to fetch user data
+    async function fetchUserData() {
+        const apiUrl = 'https://jsonplaceholder.typicode.com/users';
+        const dataContainer = document.getElementById('api-data');
 
-    // Feedback division selection
-    const feedbackDiv = document.getElementById("form-feedback");
+        try {
+            const response = await fetch(apiUrl);
+            const users = await response.json();
 
-    // Form submission event listener
-    form.addEventListener("submit", (event) => {
-        event.preventDefault();
+            // Clear the loading message
+            dataContainer.innerHTML = '';
 
-        // Retrieve and trim user inputs
-        const username = document.getElementById("username").value.trim();
-        const email = document.getElementById("email").value.trim();
-        const password = document.getElementById("password").value.trim();
+            // Create a list to display users
+            const userList = document.createElement('ul');
 
-        // Initialize validation variables
-        let isValid = true;
-        const messages = [];
+            // Loop through users and add them to the list
+            users.forEach(user => {
+                const listItem = document.createElement('li');
+                listItem.textContent = user.name;
+                userList.appendChild(listItem);
+            });
 
-        // Username validation
-        if (username.length < 3) {
-            isValid = false;
-            messages.push("Username must be at least 3 characters long.");
+            // Append the list to the container
+            dataContainer.appendChild(userList);
+
+        } catch (error) {
+            // Handle errors
+            dataContainer.innerHTML = 'Failed to load user data.';
         }
+    }
 
-        // Email validation
-        if (!email.includes("@") || !email.includes(".")) {
-            isValid = false;
-            messages.push("Please enter a valid email address.");
-        }
-
-        // Password validation
-        if (password.length < 8) {
-            isValid = false;
-            messages.push("Password must be at least 8 characters long.");
-        }
-
-        // Display feedback
-        feedbackDiv.style.display = "block";
-
-        if (isValid) {
-            feedbackDiv.textContent = "Registration successful!";
-            feedbackDiv.style.color = "#28a745";
-        } else {
-            feedbackDiv.innerHTML = messages.join("<br>");
-            feedbackDiv.style.color = "#dc3545";
-        }
-    });
+    // Invoke the function
+    fetchUserData();
 });

@@ -1,9 +1,30 @@
 document.addEventListener("DOMContentLoaded", function() {
     const form = document.getElementById("registration-form");
     const feedbackDiv = document.getElementById("form-feedback");
-    // other code will go here later — like event listeners or validations
-    
-       async function fetchUserData() {
+
+    // Form submit event listener
+    form.addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        // Fetch and trim values
+        const username = document.getElementById("username").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value.trim();
+
+        // Simple validation
+        if (!username || !email || !password) {
+            feedbackDiv.style.color = "red";
+            feedbackDiv.textContent = "Please fill in all fields.";
+            return;
+        }
+
+        // If all fields are filled
+        feedbackDiv.style.color = "green";
+        feedbackDiv.textContent = "Registration successful!";
+    });
+
+    // Async function to fetch user data
+    async function fetchUserData() {
         const apiUrl = 'https://jsonplaceholder.typicode.com/users';
         const dataContainer = document.getElementById('api-data');
 

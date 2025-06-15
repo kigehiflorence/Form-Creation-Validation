@@ -6,21 +6,37 @@ document.addEventListener("DOMContentLoaded", function() {
     form.addEventListener("submit", function(event) {
         event.preventDefault();
 
-        // Fetch and trim values
         const username = document.getElementById("username").value.trim();
         const email = document.getElementById("email").value.trim();
         const password = document.getElementById("password").value.trim();
 
-        // Simple validation
-        if (!username || !email || !password) {
-            feedbackDiv.style.color = "red";
-            feedbackDiv.textContent = "Please fill in all fields.";
-            return;
+        const messages = [];
+        let isValid = true;
+
+        // Validation checks
+        if (username === "") {
+            messages.push("Username is required.");
+            isValid = false;
         }
 
-        // If all fields are filled
-        feedbackDiv.style.color = "green";
-        feedbackDiv.textContent = "Registration successful!";
+        if (email === "") {
+            messages.push("Email is required.");
+            isValid = false;
+        }
+
+        if (password === "") {
+            messages.push("Password is required.");
+            isValid = false;
+        }
+
+        // Display validation results
+        if (!isValid) {
+            feedbackDiv.style.color = "red";
+            feedbackDiv.innerHTML = messages.join("<br>");
+        } else {
+            feedbackDiv.style.color = "green";
+            feedbackDiv.textContent = "Registration successful!";
+        }
     });
 
     // Async function to fetch user data
@@ -38,7 +54,6 @@ document.addEventListener("DOMContentLoaded", function() {
             // Create a list to display users
             const userList = document.createElement('ul');
 
-            // Loop through users and add them to the list
             users.forEach(user => {
                 const listItem = document.createElement('li');
                 listItem.textContent = user.name;
@@ -49,7 +64,6 @@ document.addEventListener("DOMContentLoaded", function() {
             dataContainer.appendChild(userList);
 
         } catch (error) {
-            // Handle errors
             dataContainer.innerHTML = 'Failed to load user data.';
         }
     }

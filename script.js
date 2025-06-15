@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
     const form = document.getElementById("registration-form");
-
+    const feedbackDiv = document.getElementById("form-feedback");
     // other code will go here later — like event listeners or validations
     
        async function fetchUserData() {

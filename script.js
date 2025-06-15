@@ -15,6 +15,9 @@ document.addEventListener("DOMContentLoaded", function() {
         if (username === "") {
             messages.push("Username is required.");
             isValid = false;
+        } else if (username.length < 3) {
+            messages.push("Username must be at least 3 characters long.");
+            isValid = false;
         }
 
         if (email === "") {
@@ -27,7 +30,6 @@ document.addEventListener("DOMContentLoaded", function() {
             isValid = false;
         }
 
-        // Always make feedbackDiv visible
         feedbackDiv.style.display = "block";
 
         if (isValid) {
